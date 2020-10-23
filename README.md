@@ -1,6 +1,6 @@
 # firebase_test_app
 
-A new Flutter application.
+FireBaseの練習だよ
 
 ## Getting Started
 

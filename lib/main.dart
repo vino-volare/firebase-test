@@ -1,11 +1,13 @@
+import 'package:firebase_test_app/main_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,29 +16,42 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(''),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '',
-              ),
-              Text(
-                '',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ],
+      home: ChangeNotifierProvider<MainModel>(
+        create: (_) => MainModel(),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(''),
+            ),
+            body: Consumer<MainModel>(
+              builder: (context,model,child) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        model.vinoText,
+                      ),
+                      Text(
+                        model.vinoText,
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      RaisedButton(
+                        child: Text(model.vinoText),
+                        onPressed: (){
+                          model.changeVinoText();
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              }
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed:(){},
+              tooltip: 'Increment',
+              child: Icon(Icons.add),
+            ), // This trailing comma makes auto-formatting nicer for build methods.
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed:(){},
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
